@@ -30,7 +30,7 @@ function Imageupload() {
   const [description, setDescription] = useState<string>();
   const {user} = useAuthContext();
   const [loading, setLoading] = useState<boolean>(false)
-  const onImageSelect = (event: ChangeEvent<HTMLElement>) => {
+  const onImageSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
       const file = files[0];
