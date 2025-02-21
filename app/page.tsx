@@ -35,10 +35,14 @@ const codeSnippets = [
   );
 }`,
 ];
-
+interface Snippet {
+  code: string;
+  x: number;
+  y: number;
+}
 export default function Home() {
   const user = useAuthContext();
-  const [backgroundSnippets, setBackgroundSnippets] = useState([]);
+  const [backgroundSnippets, setBackgroundSnippets] = useState<Snippet[]>([]);
 
   useEffect(() => {
     const snippets = Array(5)
@@ -264,7 +268,7 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ icon, title, description }) {
+function FeatureCard({ icon, title, description }: any) {
   return (
     <motion.div
       className="bg-gray-800 p-6 rounded-lg"
