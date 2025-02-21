@@ -1,5 +1,6 @@
 import React from 'react'
 import DashboardProvider from './provider';
+import { Toaster } from "@/components/ui/sonner"
 
 
 function DashboardLayout({
@@ -11,6 +12,8 @@ function DashboardLayout({
     return (
         <DashboardProvider>
             {children}
+          <Toaster />
+
         </DashboardProvider>
     )
 }

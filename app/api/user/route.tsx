@@ -7,7 +7,6 @@ import { usersTable } from "@/configs/schema";
 export async function POST(req: NextRequest) {
     const { userEmail, userName } = await req.json();
 
-    // try {
     const result = await db.select().from(usersTable)
         .where(eq(usersTable.email, userEmail));
 
@@ -16,16 +15,25 @@ export async function POST(req: NextRequest) {
         const result: any = await db.insert(usersTable).values({
             name: userName,
             email: userEmail,
-            credits: 0,
+            credits: 5,
             // @ts-ignore
         }).returning(usersTable);
 
         return NextResponse.json(result[0]);
     }
     return NextResponse.json(result[0]);
+}
 
+export async function GET(req: NextRequest) {
+    const reqUrl = req.url;
+    const { searchParams } = new URL(reqUrl);
+    const email = searchParams.get("email");
 
-    // } catch (e) {
-    //     return NextResponse.json(e)
-    // }
+    if (email) {
+        const result = await db.select().from(usersTable)
+           .where(eq(usersTable.email, email));
+
+        return NextResponse.json(result[0]);
+    }
+    return NextResponse.json({ error: "No user found" }, { status: 404 });
 }
